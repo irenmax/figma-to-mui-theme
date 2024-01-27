@@ -1,0 +1,16 @@
+{
+  "name": "Figma to MUI theme",
+  "id": "1332095679597864082",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
+}
