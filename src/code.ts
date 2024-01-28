@@ -1,16 +1,16 @@
+import exportColors from "./exportColors";
 import exportPalette from "./exportPalette";
 import getPaletteModes from "./getPaletteModes";
 import objectToString from "./objectToString";
 
 const exportTheme = (modeId: string) => {
   const palette = exportPalette(modeId);
+  const colors = exportColors();
 
   const functionString = `
   import colors from '@mui/material/colors';
 
-  const custom = {
-    // TODO: export color schemes
-  }
+  const custom = ${objectToString(colors)};
 
   export default function theme() {
     return {

@@ -1,13 +1,17 @@
 import rgbToHex from "./rgbToHex";
 
-export default function variablesToPalette(
+export function variablesToObjects(
   variables: Variable[],
   modeId: string | undefined
 ): Record<string, unknown> {
   if (!modeId) return {};
   const result: Record<string, unknown> = {};
   for (const v of variables) {
+    if (v.name.startsWith("_")) {
+      continue;
+    }
     const parts = v.name.split("/");
+
     let current = result;
     for (let i = 0; i < parts.length - 1; i++) {
       const part = parts[i];
@@ -18,6 +22,7 @@ export default function variablesToPalette(
     }
 
     const value: VariableValue = v.valuesByMode[modeId];
+
     if (isVariableAlias(value)) {
       const variable = figma.variables.getVariableById(value.id);
       if (variable) {
@@ -56,11 +61,12 @@ function isVariableAlias(value: VariableValue): value is VariableAlias {
 function formatVariableAlias(value: string): string {
   if (value.includes("material/")) {
     const name = value.replace("material/", "colors/");
-    // replace the last part behind the slash with [value]
     return name
       .replace(/\/([^/]+)$/, (match, p1) => `[${p1}]`)
       .replace(/\//g, ".");
   }
 
-  return value.replace(/\//g, ".");
+  return value
+    .replace(/\/([^/]+)$/, (match, p1) => `[${p1}]`)
+    .replace(/\//g, ".");
 }
