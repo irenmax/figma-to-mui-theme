@@ -1,41 +1,26 @@
-Below are the steps to get your plugin running. You can also find instructions at:
-
-  https://www.figma.com/plugin-docs/plugin-quickstart-guide/
-
-This plugin template uses Typescript and NPM, two standard tools in creating JavaScript applications.
-
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
-
-  https://nodejs.org/en/download/
-
-Next, install TypeScript using the command:
-
-  npm install -g typescript
-
-Finally, in the directory of your plugin, get the latest type definitions for the plugin API by running:
-
-  npm install --save-dev @figma/plugin-typings
-
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
-
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
-
-For more information, visit https://www.typescriptlang.org/
-
-Using TypeScript requires a compiler to convert TypeScript (code.ts) into JavaScript (code.js)
-for the browser to run.
-
-We recommend writing TypeScript code using Visual Studio code:
-
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-    then select "npm: watch". You will have to do this again every time
-    you reopen Visual Studio Code.
-
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
 # figma-to-mui-theme
+
+This Figma plugin is a quick proof of concept for generating a usable theme and styles for MUI from variables provided by a file that is built on the [MUI for Figma](https://mui.com/store/items/figma-react/) library.
+
+⚠️ This plugin currently only works for color palettes and does not support other styles yet (typography, effects, etc.).
+
+## Setup Variable Collections
+
+To produces a usable result, the varialbe collections need to be restructured a bit:
+
+### Custom colors
+
+If you use custom colors, move the existing material colors to a variable group called `material`: For example, rename `amber` to `material/amber` and Figma orders them into groups.  
+Your custom colors should then be put inside the `customColors` group.
+
+### Paper elevation
+
+The MUI library in Figma contains different colors for elevation levels, but those do not exist in a MUI theme palette. Remove the `background/paper-elevation-x` variables. Add one variable `background/paper` which defines the paper background.
+
+## Run the Plugin
+
+1. run `npm setup`
+2. Go to Figma and open a file
+3. From the _Figma_ menu in the top left, select **Plugins** -> **Development** -> **Import plugin from manifest**
+4. Select the `manifest.json` from this project
+5. Now you can find the plugin in your _Plugins_ panel in design and dev mode.
