@@ -12,10 +12,14 @@ const exportTheme = (modeId: string) => {
 
   const customColors = ${objectToString(colors)};
 
+  export function components() {
+    return ${objectToString(palette.components as Record<string, unknown>)}
+    
+  } 
 
-  export default function theme() {
+  export function theme() {
     return {
-      palette: ${objectToString(palette)},
+      palette: ${objectToString(palette.palette)},
     }
   }
   `;
