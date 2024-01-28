@@ -1,16 +1,35 @@
 import exportPalette from "./exportPalette";
 import getPaletteModes from "./getPaletteModes";
+import objectToString from "./objectToString";
 
 const exportTheme = (modeId: string) => {
-  const modes = getPaletteModes();
   const palette = exportPalette(modeId);
-  return palette;
+
+  const functionString = `
+  import colors from '@mui/material/colors';
+
+  const custom = {
+    // TODO: export color schemes
+  }
+
+  export default function theme() {
+    return {
+      palette: ${objectToString(palette)},
+    }
+  }
+  `;
+
+  return functionString;
 };
 
 const exportFile = (modeId: string) => {
   const theme = exportTheme(modeId);
-  console.log(theme);
   figma.ui.postMessage({ type: "EXPORT_MESSAGE", body: theme });
+};
+
+const initModes = () => {
+  const modes = getPaletteModes();
+  figma.ui.postMessage({ type: "MODES", body: modes });
 };
 
 figma.ui.onmessage = (e: { type: string; body: string }) => {
@@ -26,5 +45,4 @@ figma.showUI(__uiFiles__["export"], {
   themeColors: true,
 });
 
-const modes = getPaletteModes();
-figma.ui.postMessage({ type: "MODES", body: modes });
+initModes();

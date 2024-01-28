@@ -102,11 +102,7 @@
     }
 
     if (pluginMessage.type === "EXPORT_MESSAGE") {
-      document.querySelector("textarea").innerHTML = `${JSON.stringify(
-        pluginMessage.body,
-        null,
-        2
-      )}`;
+      document.querySelector("textarea").innerHTML = pluginMessage.body;
     }
   };
   document.getElementById("export").addEventListener("click", () => {

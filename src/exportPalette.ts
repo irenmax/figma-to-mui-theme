@@ -10,7 +10,5 @@ export default function exportPalette(modeId: string) {
   const variables = paletteCollection?.variableIds.map((id) =>
     figma.variables.getVariableById(id)
   );
-  return {
-    palette: variablesToPalette(variables as Variable[], modeId),
-  };
+  return variablesToPalette(variables as Variable[], modeId);
 }

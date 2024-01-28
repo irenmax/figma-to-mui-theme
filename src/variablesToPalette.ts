@@ -21,7 +21,7 @@ export default function variablesToPalette(
     if (isVariableAlias(value)) {
       const variable = figma.variables.getVariableById(value.id);
       if (variable) {
-        current[parts[parts.length - 1]] = variable.name;
+        current[parts[parts.length - 1]] = formatVariableAlias(variable.name);
       }
       continue;
     }
@@ -51,4 +51,16 @@ function isVariableAlias(value: VariableValue): value is VariableAlias {
     "id" in value &&
     value.type === "VARIABLE_ALIAS"
   );
+}
+
+function formatVariableAlias(value: string): string {
+  if (value.includes("material/")) {
+    const name = value.replace("material/", "colors/");
+    // replace the last part behind the slash with [value]
+    return name
+      .replace(/\/([^/]+)$/, (match, p1) => `[${p1}]`)
+      .replace(/\//g, ".");
+  }
+
+  return value.replace(/\//g, ".");
 }
