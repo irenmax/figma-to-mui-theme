@@ -5,8 +5,9 @@
   "main": "dist/code.js",
   "enableProposedApi": false,
   "editorType": ["dev", "figma"],
-  "capabilities": ["vscode"],
+  "capabilities": ["vscode", "inspect"],
   "networkAccess": {
     "allowedDomains": ["none"]
-  }
+  },
+  "ui": { "export": "export.html" }
 }

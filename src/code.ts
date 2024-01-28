@@ -1,28 +1,30 @@
-import variablesToPalette from "./variablesToPalette";
+import exportPalette from "./exportPalette";
+import getPaletteModes from "./getPaletteModes";
 
-const generatePalettes = () => {
-  const collections = figma.variables.getLocalVariableCollections();
-
-  const paletteCollection = collections.find(
-    (collection) => collection.name === "palette"
-  );
-
-  const palettes: Record<string, unknown> = {};
-
-  paletteCollection?.modes.forEach((mode) => {
-    const variables = paletteCollection?.variableIds.map((id) =>
-      figma.variables.getVariableById(id)
-    );
-
-    palettes[mode.name] = variablesToPalette(
-      variables as Variable[],
-      mode?.modeId
-    );
-  });
-
-  return palettes;
+const exportTheme = (modeId: string) => {
+  const modes = getPaletteModes();
+  const palette = exportPalette(modeId);
+  return palette;
 };
 
-const palettes = generatePalettes();
-console.log(palettes);
-figma.closePlugin();
+const exportFile = (modeId: string) => {
+  const theme = exportTheme(modeId);
+  console.log(theme);
+  figma.ui.postMessage({ type: "EXPORT_MESSAGE", body: theme });
+};
+
+figma.ui.onmessage = (e: { type: string; body: string }) => {
+  console.log("code received message", e);
+  if (e.type === "EXPORT") {
+    exportFile(e.body);
+  }
+};
+
+figma.showUI(__uiFiles__["export"], {
+  width: 800,
+  height: 1000,
+  themeColors: true,
+});
+
+const modes = getPaletteModes();
+figma.ui.postMessage({ type: "MODES", body: modes });
