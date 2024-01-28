@@ -1,4 +1,3 @@
-import rgbToHex from "./rgbToHex";
 import { variablesToObjects } from "./variablesToObjects";
 
 export default function exportPalette(modeId: string) {
@@ -12,5 +11,10 @@ export default function exportPalette(modeId: string) {
     figma.variables.getVariableById(id)
   );
 
-  return variablesToObjects(variables as Variable[], modeId);
+  const styles = variablesToObjects(variables as Variable[], modeId);
+  const { components, ...palette } = styles;
+  return {
+    components: components,
+    palette: palette,
+  };
 }

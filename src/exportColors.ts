@@ -11,11 +11,11 @@ export default function exportColors() {
     figma.variables.getVariableById(id)
   );
   const customColorVariables = variables?.filter((v) =>
-    v?.name.startsWith("custom/")
+    v?.name.startsWith("customColors/")
   );
 
   const defaultModeId = colorsCollection?.defaultModeId;
 
   return variablesToObjects(customColorVariables as Variable[], defaultModeId)
-    .custom as Record<string, unknown>;
+    .customColors as Record<string, unknown>;
 }

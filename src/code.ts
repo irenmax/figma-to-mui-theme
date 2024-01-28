@@ -10,7 +10,8 @@ const exportTheme = (modeId: string) => {
   const functionString = `
   import colors from '@mui/material/colors';
 
-  const custom = ${objectToString(colors)};
+  const customColors = ${objectToString(colors)};
+
 
   export default function theme() {
     return {
