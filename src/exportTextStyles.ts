@@ -1,6 +1,5 @@
 export default function exportTextStyles() {
   const typographyStyles = figma.getLocalTextStyles();
-  console.log(typographyStyles);
   const fontStyles = typographyStyles.map(
     (style) =>
       ({

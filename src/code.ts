@@ -1,5 +1,6 @@
 import exportColors from "./exportColors";
 import exportPalette from "./exportPalette";
+import exportShadows from "./exportShadows";
 import exportTextStyles from "./exportTextStyles";
 import getPaletteModes from "./getPaletteModes";
 import objectToString from "./objectToString";
@@ -8,6 +9,7 @@ const exportTheme = (modeId: string) => {
   const palette = exportPalette(modeId);
   const colors = exportColors();
   const typography = exportTextStyles();
+  const shadows = exportShadows();
 
   const functionString = `
   {
@@ -16,7 +18,8 @@ const exportTheme = (modeId: string) => {
       palette.components as Record<string, unknown>
     )},
     "palette": ${objectToString(palette.palette)},
-    "textStyles": ${objectToString(typography)}
+    "textStyles": ${objectToString(typography)},
+    "shadows": ${objectToString(shadows)}
   }
   `;
 
