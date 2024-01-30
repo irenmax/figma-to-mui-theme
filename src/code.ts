@@ -1,26 +1,22 @@
 import exportColors from "./exportColors";
 import exportPalette from "./exportPalette";
+import exportTextStyles from "./exportTextStyles";
 import getPaletteModes from "./getPaletteModes";
 import objectToString from "./objectToString";
 
 const exportTheme = (modeId: string) => {
   const palette = exportPalette(modeId);
   const colors = exportColors();
+  const typography = exportTextStyles();
 
   const functionString = `
-  import colors from '@mui/material/colors';
-
-  const customColors = ${objectToString(colors)};
-
-  export function components() {
-    return ${objectToString(palette.components as Record<string, unknown>)}
-    
-  } 
-
-  export function theme() {
-    return {
-      palette: ${objectToString(palette.palette)},
-    }
+  {
+    "customColors": ${objectToString(colors)},
+    "componentColors": ${objectToString(
+      palette.components as Record<string, unknown>
+    )},
+    "palette": ${objectToString(palette.palette)},
+    "textStyles": ${objectToString(typography)}
   }
   `;
 
