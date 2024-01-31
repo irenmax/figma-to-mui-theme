@@ -19,7 +19,7 @@ const exportTheme = (modeId: string) => {
     )},
     "palette": ${objectToString(palette.palette)},
     "textStyles": ${objectToString(typography)},
-    "shadows": ${objectToString(shadows)}
+    "shadows": ${JSON.stringify(shadows, null, "\t")}
   }
   `;
 

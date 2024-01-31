@@ -10,15 +10,12 @@ export default function exportShadows() {
       shadow: dropShadowEffectsToCssShadow(shadowEffects as DropShadowEffect[]),
     };
   });
-  const shadows = shadowEffects.reduce((acc: Record<number, string>, item) => {
-    const name = item.name.replace("elevation/", "");
-    acc[+name] = item.shadow;
-    return acc;
-  }, {});
-  return {
-    0: "none",
-    ...shadows,
-  };
+  return [
+    "none",
+    ...shadowEffects.map((item) => {
+      return item.shadow;
+    }),
+  ];
 }
 
 function dropShadowEffectsToCssShadow(effects: DropShadowEffect[]) {
