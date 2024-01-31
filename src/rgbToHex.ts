@@ -1,8 +1,10 @@
+import round from "./round";
+
 export default function rgbToHex({ r, g, b, a }: RGBA): string {
   if (a !== 1) {
     return `rgba(${[r, g, b]
       .map((n) => Math.round(n * 255))
-      .join(", ")}, ${a.toFixed(4)})`;
+      .join(", ")}, ${round(a)})`;
   }
   const toHex = (value: number) => {
     const hex = Math.round(value * 255).toString(16);

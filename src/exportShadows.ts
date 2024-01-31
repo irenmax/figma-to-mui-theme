@@ -1,3 +1,5 @@
+import round from "./round";
+
 export default function exportShadows() {
   const effects = figma.getLocalEffectStyles();
   const shadowEffects = effects.map((effect) => {
@@ -25,9 +27,9 @@ function dropShadowEffectsToCssShadow(effects: DropShadowEffect[]) {
     .map((item) => {
       const { offset, radius, spread, color } = item;
 
-      const cssColor = `rgba(${color.r}, ${color.g}, ${
-        color.b
-      }, ${color.a.toFixed(2)})`;
+      const cssColor = `rgba(${color.r}, ${color.g}, ${color.b}, ${round(
+        color.a
+      )})`;
       const cssShadow = `${offset.x}px ${offset.y}px ${radius}px ${spread}px ${cssColor}`;
 
       return cssShadow;

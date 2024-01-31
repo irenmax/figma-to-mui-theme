@@ -1,3 +1,5 @@
+import round from "./round";
+
 export default function exportTextStyles() {
   const typographyStyles = figma.getLocalTextStyles();
   const fontStyles = typographyStyles.map(
@@ -39,9 +41,9 @@ function mapFontStyleToWeight(fontStyle: string) {
 
 function lineHeightToString(lineHeight: LineHeight) {
   if (lineHeight.unit === "PIXELS") {
-    return `${lineHeight.value}px`;
+    return `${round(lineHeight.value)}px`;
   } else if (lineHeight.unit === "PERCENT") {
-    return `${lineHeight.value}%`;
+    return `${round(lineHeight.value)}%`;
   } else {
     return "auto";
   }
@@ -49,9 +51,9 @@ function lineHeightToString(lineHeight: LineHeight) {
 
 function letterSpacintToString(letterSpacing: LetterSpacing) {
   if (letterSpacing.unit === "PIXELS") {
-    return `${letterSpacing.value}px`;
+    return `${round(letterSpacing.value)}px`;
   } else if (letterSpacing.unit === "PERCENT") {
-    return `${letterSpacing.value}%`;
+    return `${round(letterSpacing.value)}%`;
   } else {
     return "normal";
   }
