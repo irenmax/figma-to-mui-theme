@@ -7,3 +7,4 @@ out/
 dist/
 *.js
 test.json
+!webpack.config.js
