@@ -9,7 +9,7 @@ const exportTheme = (modeId: string) => {
   const palette = exportPalette(modeId);
   const colors = exportColors();
   const typography = exportTextStyles();
-  const shadows = exportShadows();
+  const shadows = exportShadows(modeId);
 
   const functionString = `
   {

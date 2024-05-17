@@ -14,3 +14,16 @@ export default function rgbToHex({ r, g, b, a }: RGBA): string {
   const hex = [toHex(r), toHex(g), toHex(b)].join("");
   return `#${hex}`;
 }
+
+export function mapRgba({ r, g, b, a }: RGBA): RGBA {
+  return {
+    r: roundRGB(r),
+    g: roundRGB(g),
+    b: roundRGB(b),
+    a: round(a),
+  };
+}
+
+function roundRGB(value: number): number {
+  return Math.round(value * 255);
+}
